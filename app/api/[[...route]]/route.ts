@@ -1,12 +1,12 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
-import { sampleARoute } from "./sampleA";
-import { sampleBRoute } from "./sampleB";
+import { orgsRoute, reposRoute, usersRoute } from ".";
 
 const app = new Hono()
 	.basePath("/api")
-	.route("/sampleA", sampleBRoute)
-	.route("/sampleB", sampleARoute);
+	.route("/orgs", orgsRoute)
+	.route("/repo", reposRoute)
+	.route("/users", usersRoute);
 
 export type AppType = typeof app;
 
