@@ -3,18 +3,24 @@ import { client } from "@/lib/hono";
 import type { InferResponseType } from "hono";
 import { useEffect, useState } from "react";
 
-type ResType = InferResponseType<typeof client.api.sampleA.$get>;
+type ResType = InferResponseType<typeof client.api.users.$get>;
 export function GetExampleClientComponent() {
 	const [data, setData] = useState<ResType | null>(null);
 	useEffect(() => {
-		client.api.sampleA
+		client.api.users
 			.$get({
 				query: {
-					name: "User",
+					username: "TODA-Corporation",
 				},
 			})
 			.then((res) => res.json())
 			.then((json) => setData(json));
 	}, []);
-	return data && <div>{data.message}</div>;
+	return (
+		data && (
+			<div>
+				{data ? <p>Hello, {data.userData.login}</p> : <p>loading...</p>}
+			</div>
+		)
+	);
 }

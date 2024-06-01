@@ -1,15 +1,15 @@
 import { client } from "@/lib/hono";
 export async function GetExampleServerComponent() {
-	const res = await client.api.sampleB.$get({
+	const res = await client.api.users.$get({
 		query: {
-			name: "User",
+			username: "ve1997",
 		},
 	});
 	const json = await res.json();
 	return (
 		<div>
-			Server Component
-			<p>{json.message}</p>
+			<p>GetExampleServerComponent</p>
+			<pre>{JSON.stringify(json, null, 2)}</pre>
 		</div>
 	);
 }

@@ -4,10 +4,10 @@ import { client } from "@/lib/hono";
 import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 
-const postHello = async (_: string, { arg }: { arg: string }) => {
-	const res = await client.api.sampleA.$post({
-		json: {
-			text: arg,
+const postData = async (_: string, { arg }: { arg: string }) => {
+	const res = await client.api.users.$get({
+		query: {
+			username: arg,
 		},
 	});
 	return await res.json();
@@ -15,7 +15,7 @@ const postHello = async (_: string, { arg }: { arg: string }) => {
 
 export function PostExampleClientComponent() {
 	const [value, setValue] = useState<string>("");
-	const { trigger, isMutating, data } = useSWRMutation("hello", postHello);
+	const { trigger, isMutating, data } = useSWRMutation("users", postData);
 
 	const handleClick = () => {
 		trigger(value);
@@ -24,17 +24,12 @@ export function PostExampleClientComponent() {
 	return (
 		<div className="m-4 flex min-w-[400px] flex-col items-center justify-center rounded bg-white p-4 shadow-md">
 			<div className="mb-4 text-center">
-				<p className="mb-2 text-gray-700 text-lg">
-					Hello と、入力された文字列を
-					<br />
-					連結してリターンします
-				</p>
 				<input
 					type="text"
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
 					className="rounded border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none"
-					placeholder="Enter text..."
+					placeholder="Enter your userName..."
 				/>
 			</div>
 			<div className="mb-4">
@@ -47,11 +42,22 @@ export function PostExampleClientComponent() {
 					{isMutating ? "Loading..." : "Click"}
 				</button>
 			</div>
-			{data?.message && (
+			{isMutating && (
 				<div className="my-4 rounded bg-gray-100 p-4 shadow">
-					<p className="text-gray-800 text-lg">
-						API Response: <strong>{data.message}</strong>
-					</p>
+					<p>loading...</p>
+				</div>
+			)}
+			{data && (
+				<div className="my-4 rounded bg-gray-100 p-4 shadow">
+					<div className="mb-4 flex items-center justify-center">
+						<img
+							src={data.userData.avatar_url}
+							alt={data.userData.login}
+							className="mr-4 h-12 w-12 rounded-full"
+						/>
+						<p className="font-semibold">{data.userData.login}</p>
+					</div>
+					<pre>{JSON.stringify(data, null, 2)}</pre>
 				</div>
 			)}
 		</div>
