@@ -21,6 +21,7 @@ export const reposRoute = app
 			const { data } = await octokit.repos.listCollaborators({
 				owner,
 				repo,
+				per_page: 100,
 			});
 
 			return c.json({
@@ -42,6 +43,7 @@ export const reposRoute = app
 			const { data } = await octokit.repos.listBranches({
 				owner,
 				repo,
+				per_page: 100,
 			});
 
 			return c.json({
@@ -63,6 +65,7 @@ export const reposRoute = app
 			const { data } = await octokit.repos.listCommits({
 				owner,
 				repo,
+				per_page: 100,
 			});
 
 			return c.json({
@@ -84,6 +87,7 @@ export const reposRoute = app
 			const { data } = await octokit.issues.listForRepo({
 				owner,
 				repo,
+				per_page: 100,
 			});
 			return c.json({
 				issuesData: data,

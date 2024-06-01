@@ -17,7 +17,7 @@ export const orgsRoute = app
 		),
 		async (c) => {
 			const { org } = c.req.valid("query");
-			const { data } = await octokit.orgs.listMembers({ org });
+			const { data } = await octokit.orgs.listMembers({ org, per_page: 100 });
 
 			return c.json({
 				membersData: data,
@@ -34,7 +34,7 @@ export const orgsRoute = app
 		),
 		async (c) => {
 			const { org } = c.req.valid("query");
-			const { data } = await octokit.repos.listForOrg({ org });
+			const { data } = await octokit.repos.listForOrg({ org, per_page: 100 });
 
 			return c.json({
 				reposData: data,
@@ -51,7 +51,7 @@ export const orgsRoute = app
 		),
 		async (c) => {
 			const { org } = c.req.valid("query");
-			const { data } = await octokit.issues.listForOrg({ org });
+			const { data } = await octokit.issues.listForOrg({ org, per_page: 100 });
 
 			return c.json({
 				issuesData: data,

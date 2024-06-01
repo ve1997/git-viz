@@ -1,6 +1,6 @@
 import { MemberInfo } from "@/features/memberList";
 import { client } from "@/lib/hono";
-const orgName = process.env.ORGANIZATION || "";
+const orgName = process.env.NEXT_PUBLIC_ORGANIZATION || "";
 export default async function Home() {
 	const res = await client.api.orgs.members.$get({
 		query: {

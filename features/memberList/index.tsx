@@ -11,7 +11,7 @@ type MemberInfoProps = {
 export function MemberInfo({ member }: MemberInfoProps) {
 	return (
 		<Link
-			href={`/${member.login}`}
+			href={`/user/${member.login}`}
 			className="flex cursor-pointer flex-col items-center gap-2 rounded p-2 transition-colors duration-200 hover:bg-gray-200"
 		>
 			<img
