@@ -1,11 +1,7 @@
 "use client";
+import { MemberPage } from "@/features/member";
 import { useParams } from "next/navigation";
 export default function UserPage() {
 	const { user } = useParams();
-	return (
-		<div>
-			<p>UserPage</p>
-			<p>{user}</p>
-		</div>
-	);
+	return <MemberPage user={user as string} />;
 }
