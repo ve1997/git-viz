@@ -5,7 +5,7 @@ import { orgsRoute, reposRoute, usersRoute } from ".";
 const app = new Hono()
 	.basePath("/api")
 	.route("/orgs", orgsRoute)
-	.route("/repo", reposRoute)
+	.route("/repos", reposRoute)
 	.route("/users", usersRoute);
 
 export type AppType = typeof app;
